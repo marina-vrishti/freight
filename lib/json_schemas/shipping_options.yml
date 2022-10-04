@@ -1,0 +1,24 @@
+{
+  'type': 'object',
+  'required': ['sailings', 'rates', 'exchange_rates'],
+  'properties': {
+    'sailings': { 'type': 'array',
+                    'items': { 'type': 'object',
+                                 'required': ['origin_port', 'destination_port', 'departure_date',
+                                                  'arrival_date', 'sailing_code'],
+                                 'properties': {
+                                   'departure_date': { 'type': 'date' },
+                                   'arrival_date': { 'type': 'date' },
+                                   'origin_port': { 'type': 'string' }
+                                 } } },
+    'rates': { 'type': 'array',
+                 'items': { 'type': 'object',
+                              'required': ['sailing_code', 'rate_currency', 'rate'],
+                              'properties': {
+                                'rate_currency': { 'type': 'string' },
+                                'rate': { 'type': 'float' },
+                                'sailing_code': { 'type': 'string' }
+                              } } },
+    'exchange_rates': { 'type': 'object' }
+  }
+}

@@ -124,6 +124,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
+    pairing_heap (1.0.0)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -172,6 +173,10 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
+    rgl (0.5.9)
+      pairing_heap (>= 0.3.0)
+      rexml (~> 3.2, >= 3.2.4)
+      stream (~> 0.5.3)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.1)
@@ -202,6 +207,7 @@ GEM
     rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
+    stream (0.5.5)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -227,6 +233,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   rails (~> 7.0.4)
+  rgl
   rspec-rails
   rubocop
   tzinfo-data

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get 'cheapest_direct_sailings', to: 'cheapest_direct_sailings#index'
+  get 'cheapest_indirect_sailings', to: 'cheapest_sailings#index'
 end

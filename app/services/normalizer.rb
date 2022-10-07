@@ -10,7 +10,7 @@ class Normalizer
   end
 
   def call
-    result = save_calculated_price(combined_with_rates)
+    save_calculated_price(combined_with_rates)
   end
 
   def combined_with_rates

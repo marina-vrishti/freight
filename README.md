@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a test task, see more details at https://github.com/shypple/take-home-exercise
 
-Things you may want to cover:
+* rvm install 3.2.1 
 
-* Ruby version
+* rvm use gemset freight@3.2.1 --create
 
-* System dependencies
+* rake db:create
 
-* Configuration
+* rspec spec # with Internet connection for VCR
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

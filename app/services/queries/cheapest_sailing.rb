@@ -12,42 +12,36 @@ module Queries
       @destination = destination_port
       @min_date = Date.new(1970)
       @sailings = direct ? only_direct(@sailings) : @sailings
+      @base = [[]]
     end
 
     def call
-      if all_routes.any?
-        all_routes.map { |el| { price: el.sum { |h| h[:price] }, path: el } }.min_by { |el| el[:price] }[:path]
-      else
-        []
-      end
+      all_routes.any? ? cheapest_route(all_routes) : []
+    end
+
+  private
+
+    def cheapest_route(all_routes)
+      all_routes.map { |el| { price: el.sum { |h| h[:price] }, path: el } }.min_by { |el| el[:price] }[:path].uniq
     end
 
     def all_routes
-      base = []
-      first_ports.each_with_index do |option, i|
-        base << [option]
-        next if option[:destination_port] == @destination
-
-        next_cheapest_options = cheapest_options(@sailings, option[:destination_port], option[:origin_port],
-                                                 option[:arrival_date])
-        next_cheapest_options.each do |opt|
-          base[i] << opt
-
-          next if option[:destination_port] == @destination
-
-          again_cheapest_options = cheapest_options(@sailings, opt[:destination_port], opt[:origin_port],
-                                                    opt[:arrival_date])
-          again_cheapest_options.each do |optt|
-            base[i] << optt
-          end
-        end
-      end
+      search(first_ports)
       # remove dead ends
-      base.select { |el| el.last[:d] == @d }
+      @base.select { |el| el.last[:d] == @d }
     end
 
     def first_ports
       cheapest_options(@sailings, @origin_port, @origin_port, @min_date)
+    end
+
+    def search(nextt)
+      nextt.each do |option|
+        @base[0] << option
+        next if option[:destination_port] == @destination
+          next2 = cheapest_options(@sailings, option[:destination_port], option[:origin_port], option[:arrival_date])
+        search(next2)
+      end
     end
 
     def cheapest_options(sailings, origin_port, no_return_to, min_date)

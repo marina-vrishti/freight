@@ -7,6 +7,7 @@ class ShippingOptions
   def call
     response =
       HTTParty.get(
+        # link for the MapReduce service
         'https://60steens.club/available_sailings'
       )
 

@@ -2,17 +2,13 @@
 
 class CheapestSailingsController < ApplicationController
   def index
-    shipping_options = ShippingOptions.new.call # get options from MapReduce
-    Validators::ShippingOptionsValidator.new(shipping_options).call
-    normalized_options = Normalizer.new(shipping_options).call
-    cheapest = Queries::CheapestSailing.new(normalized_options, params[:origin_port], params[:destination_port],
-                                            false).call
-    render json: cheapest.to_json
+    cheapest_options = Queries::Result.new(sailing_params[:origin_port], sailing_params[:destination_port], false).call
+    render json: cheapest_options.to_json
   end
 
   private
 
-  def shipping_options_params
-    params.require(:shipping_options).permit(:origin_port, :destination_port)
+  def sailing_params
+    params.permit(:origin_port, :destination_port)
   end
 end

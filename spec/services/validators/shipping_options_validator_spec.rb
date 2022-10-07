@@ -1,11 +1,29 @@
 require 'rails_helper'
 
 describe Validators::ShippingOptionsValidator do
-  let(:schema_example) { YAML.load_file('lib/json_schemas/shipping_options_example.yml') }
+  subject { described_class.new(data).call }
 
-  it 'validates shipping options data' do
-    expect(described_class.new(schema_example).call).to eq(true)
-    expect { described_class.new({ 'sailings': [], rates: [] }).call }.to raise_error
-    expect { described_class.new({}).call }.to raise_error(RuntimeError)
+  context 'when data is valid' do
+    let(:data) { YAML.load_file('lib/json_schemas/shipping_options_example.yml') }
+
+    it 'returns true' do
+      expect(subject).to eq(true)
+    end
+  end
+
+  context 'when settings and rates are empty' do
+    let(:data) { { 'sailings': [], rates: [] } }
+
+    it 'raises error' do
+      expect { subject }.to raise_error(RuntimeError)
+    end
+  end
+
+  context 'when data is an empty hash' do
+    let(:data) { {} }
+
+    it 'raises runtime error' do
+      expect { subject }.to raise_error(RuntimeError)
+    end
   end
 end

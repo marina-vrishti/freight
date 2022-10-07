@@ -19,7 +19,7 @@ module Queries
       all_routes.any? ? cheapest_route(all_routes) : []
     end
 
-  private
+    private
 
     def cheapest_route(all_routes)
       all_routes.map { |el| { price: el.sum { |h| h[:price] }, path: el } }.min_by { |el| el[:price] }[:path].uniq
@@ -35,12 +35,13 @@ module Queries
       cheapest_options(@sailings, @origin_port, @origin_port, @min_date)
     end
 
-    def search(nextt)
-      nextt.each do |option|
+    def search(next_options)
+      next_options.each do |option|
         @base[0] << option
         next if option[:destination_port] == @destination
-          next2 = cheapest_options(@sailings, option[:destination_port], option[:origin_port], option[:arrival_date])
-        search(next2)
+
+        nextt = cheapest_options(@sailings, option[:destination_port], option[:origin_port], option[:arrival_date])
+        search(nextt)
       end
     end
 
